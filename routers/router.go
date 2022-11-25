@@ -1,11 +1,15 @@
 package router
 
-import "github.com/gin-gonic/gin"
+import (
+	models "github.com/chumvan/confdb/models"
+	controller "github.com/chumvan/forwarder-rest-server/controllers"
+	"github.com/gin-gonic/gin"
+)
 
-func SetupRouter() (r *gin.Engine) {
+func SetupRouter(usersChan chan []models.User) (r *gin.Engine) {
 	r = gin.Default()
 
-	r.POST("/users")
+	r.PUT("/users", controller.MakePUTusersHandler(usersChan))
 
-	return
+	return r
 }
